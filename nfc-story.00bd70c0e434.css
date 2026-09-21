@@ -1,0 +1,30 @@
+/* Three comic panels remain readable before JS loads and with reduced motion. */
+.nfc-visual.nfc-comic{width:100%;max-width:530px;justify-self:center;margin:0}
+.nfc-comic .nfc-story-stage{width:100%;aspect-ratio:600/680;isolation:isolate}
+.nfc-comic .nfc-story-stage>img,.nfc-comic .nfc-story-stage>svg{display:block;width:100%;height:auto;aspect-ratio:600/680;transform:none;object-fit:contain;overflow:visible}
+.nfc-comic .nfc-story-footer{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-top:14px}
+.nfc-comic figcaption{display:block;margin:0;text-align:left;font-size:12px;color:#686870;line-height:1.5}
+.nfc-comic .nfc-story-toggle{flex-shrink:0;border:0;background:transparent;color:#0066cc;padding:10px 0 10px 10px;min-height:44px;font-size:12px;text-decoration:underline;text-underline-offset:4px}
+.nfc-comic .nfc-story-toggle[hidden]{display:none}
+.nfc-comic.is-enhanced .nfc-frame{animation:nfc-panel-focus 12s linear infinite}
+.nfc-comic.is-enhanced .nfc-frame-two{animation-delay:-8s}.nfc-comic.is-enhanced .nfc-frame-three{animation-delay:-4s}
+.nfc-comic.is-enhanced .nfc-approach-phone{animation:nfc-phone-close 12s ease-in-out infinite}
+.nfc-comic.is-enhanced .nfc-signal{animation:nfc-signal-pop 12s ease-out infinite;transform-origin:332px 168px}
+.nfc-comic.is-enhanced .nfc-comic-pop{animation:nfc-bubble-pop 12s ease-out infinite;transform-origin:450px 116px}
+.nfc-comic.is-enhanced .nfc-notification{animation:nfc-notice-pop 12s ease-in-out infinite;transform-origin:73px 110px}
+.nfc-comic.is-enhanced .nfc-finger{animation:nfc-finger-tap 12s ease-in-out infinite}
+.nfc-comic.is-enhanced .nfc-tap-rays{animation:nfc-tap-pop 12s linear infinite}
+.nfc-comic.is-enhanced .nfc-website{animation:nfc-site-open 12s ease-in-out infinite;transform-origin:73px 110px}
+.nfc-comic.is-enhanced .nfc-success{animation:nfc-success-pop 12s ease-out infinite;transform-origin:450px 500px}
+.nfc-comic.is-enhanced:not(.is-playing) svg *{animation-play-state:paused!important}
+@keyframes nfc-panel-focus{0%,31%{stroke:#0066cc;stroke-width:4}34%,97%{stroke:#25252a;stroke-width:3}100%{stroke:#0066cc;stroke-width:4}}
+@keyframes nfc-phone-close{0%,3%{transform:translate(38px,8px) rotate(2deg)}17%,85%{transform:translate(-24px,-13px)}96%,100%{transform:translate(38px,8px) rotate(2deg)}}
+@keyframes nfc-signal-pop{0%,13%,35%,100%{opacity:0;transform:scale(.65)}19%,29%{opacity:1;transform:scale(1)}}
+@keyframes nfc-bubble-pop{0%,8%,94%,100%{opacity:.4;transform:scale(.94)}16%,87%{opacity:1;transform:scale(1)}}
+@keyframes nfc-notice-pop{0%,28%{opacity:.35;transform:translateY(8px) scale(.96)}35%,88%{opacity:1;transform:translateY(0) scale(1)}97%,100%{opacity:.35;transform:translateY(8px) scale(.96)}}
+@keyframes nfc-finger-tap{0%,37%{transform:translate(14px,30px)}46%,49%{transform:translate(-1px,-4px)}56%,100%{transform:translate(14px,30px)}}
+@keyframes nfc-tap-pop{0%,44%,53%,100%{opacity:0}47%,50%{opacity:1}}
+@keyframes nfc-site-open{0%,62%{opacity:.3;transform:translateY(7px)}70%,91%{opacity:1;transform:translateY(0)}100%{opacity:.3;transform:translateY(7px)}}
+@keyframes nfc-success-pop{0%,65%,94%,100%{opacity:0;transform:scale(.85)}73%,87%{opacity:1;transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){:where(html:not([data-motion="full"])) .nfc-comic.is-enhanced svg *{animation:none!important}:where(html:not([data-motion="full"])) .nfc-comic .nfc-story-toggle{display:none}:where(html:not([data-motion="full"])) .nfc-comic .nfc-approach-phone{transform:translate(-24px,-13px)}:where(html:not([data-motion="full"])) .nfc-comic .nfc-finger{transform:translate(-1px,-4px)}}
+@media(max-width:760px){.nfc-visual.nfc-comic{max-width:470px}.nfc-comic .nfc-story-footer{gap:10px}.nfc-comic figcaption{font-size:11px}}

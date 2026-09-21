@@ -1,24 +1,27 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
+  <script>window.FORJA_BUILD="0b0517caa788";</script>
+  <meta name="forja-build" content="0b0517caa788">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#fdf8f5">
   <meta name="description" content="Chaveiros Forja Studio 3D. Cores que marcam, projetos que ficam. Conheça a coleção e imagine o seu personalizado.">
   <title>Chaveiros. Feitos para ficar. | Forja Studio 3D</title>
   <link rel="icon" href="assets/forja-f-favicon.svg?v=35" type="image/svg+xml">
-  <link rel="preload" href="assets/ubuntu-1.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/ubuntu-1.ttf?v=6dbcce3fdd84" as="font" type="font/ttf" crossorigin>
   
-  <script src="motion.js?v=37"></script>
-  <link rel="stylesheet" href="style.css?v=37">
-  <link rel="stylesheet" href="nfc-story.css?v=37">
-  <link rel="stylesheet" href="forja-theme.css?v=37">
-  <script src="nfc-story.js?v=37" defer></script>
-  <script src="handsfree.js?v=37" defer></script>
-  <script src="projects.js?v=37" defer></script>
-  <script src="hero.js?v=37" defer></script>
-  <script type="module" src="forja-scroll.js?v=37"></script>
-  <script type="module" src="app.js?v=37"></script>
+  <script src="language.87546b33630b.js"></script>
+  <script src="motion.16168b814a57.js"></script>
+  <link rel="stylesheet" href="style.84b6e27d1984.css">
+  <link rel="stylesheet" href="nfc-story.00bd70c0e434.css">
+  <link rel="stylesheet" href="forja-theme.099849fd95e3.css">
+  <script src="nfc-story.908411e19321.js" defer></script>
+  <script src="handsfree.671b292e8ee5.js" defer></script>
+  <script src="projects.e69e1c94d8ea.js" defer></script>
+  <script src="hero.ff9f9153f549.js" defer></script>
+  <script type="module" src="forja-scroll.af15f598e505.js"></script>
+  <script type="module" src="app.fe0cfd8a34f7.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -26,7 +29,7 @@
     <div class="nav-inner">
       <a class="brand" href="#inicio" aria-label="Forja Studio 3D, início"><img src="assets/forja-wordmark-bronze.svg" alt="Forja Studio 3D" width="144" height="48"></a>
       <nav aria-label="Navegação principal"><a href="#cores">Cores</a><a href="#colecao">Coleção</a><a href="#nfc">NFC</a></nav>
-      <a class="button small" href="https://wa.me/5518998265902" target="_blank" rel="noopener noreferrer">Comprar agora</a>
+      <div class="header-actions"><select id="site-language" aria-label="Idioma / Language"><option value="pt-BR">PT</option><option value="en">EN</option></select><a class="button small" href="https://wa.me/5518998265902" target="_blank" rel="noopener noreferrer">Comprar agora</a></div>
     </div>
   </header>
   <main id="conteudo">
@@ -36,7 +39,7 @@
       <figure class="hero-clean"><video id="hero-video" muted playsinline preload="auto" poster="assets/hero-start-v21.webp" aria-label="Sete chaveiros Sua Marca em verde, amarelo, laranja, rosa, lilás, azul e prata. Três de frente à esquerda, o rosa de perfil no centro e três de costas à direita. Relevos alternados: ímpares baixos e pares altos."><source src="assets/hero-fan-v21.mp4" type="video/mp4"></video></figure>
       <div class="motion-choice" id="motion-choice" hidden><p id="motion-explanation"></p><button type="button" id="motion-enable" aria-describedby="motion-explanation">Ativar animações</button></div>
       <p class="hero-purpose">Sua marca presente no dia a dia.</p>
-      <div class="hero-action"><a class="button" href="https://wa.me/5518998265902" target="_blank" rel="noopener noreferrer">Quero o meu <span aria-hidden="true">↗</span></a><p><strong>A partir de R$ 9,00 por unidade.</strong></p><p class="hero-price-tiers">Cor única R$ 9 · Dual Color R$ 12 · Com NFC R$ 15</p><p class="hero-minimum">Pedido mínimo de 50 unidades. Multicolorido sob consulta.</p></div>
+      <div class="hero-action"><a class="button" href="https://wa.me/5518998265902" target="_blank" rel="noopener noreferrer">Quero o meu <span aria-hidden="true">↗</span></a><p class="hero-lot-price"><strong>A partir de R$ 450,00</strong><span>lote de 50 unidades</span></p><a class="text-link hero-options" href="#valores">Mais opções <span aria-hidden="true">↓</span></a></div>
     </section>
 
     <section class="color-scroll" id="cores" aria-labelledby="color-title"><div class="color-pin section-shell">
@@ -122,7 +125,7 @@
         <label for="visitor-idea">O que você tem em mente?</label>
         <textarea id="visitor-idea" name="text" rows="4" maxlength="1500" placeholder="Quero um chaveiro com as cores da minha marca e NFC para o nosso site…" aria-describedby="idea-help"></textarea>
         <p id="idea-help">Seu texto vai com você para a conversa no WhatsApp.</p>
-        <button class="button whatsapp-button" type="submit"><svg aria-hidden="true" focusable="false"
+        <div class="contact-action"><button class="button whatsapp-button" type="submit"><svg aria-hidden="true" focusable="false"
   xmlns="http://www.w3.org/2000/svg"
   width="24"
   height="24"
@@ -136,12 +139,17 @@
   <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
   <path d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
 </svg><span>Quero algo assim</span></button>
-        <p class="contact-phone">+55 18 99826-5902</p>
+        <a class="contact-phone" href="tel:+5518998265902">+55 18 99826-5902</a></div>
       </form>
     </section>
   </main>
-  <footer class="footer section-shell"><a class="brand" href="#inicio"><img src="assets/forja-wordmark-bronze.svg" alt="Forja Studio 3D" width="180" height="60"></a><p>Ideias que saem do papel.<br>E ficam com você.</p><span>Desenvolvido por <a href="https://moraesdev.io" target="_blank" rel="noopener noreferrer">moraesdev.io</a></span></footer>
+  <footer class="footer section-shell"><a class="brand" href="#inicio"><img src="assets/forja-wordmark-bronze.svg" alt="Forja Studio 3D" width="180" height="60"></a><p>Ideias que saem do papel.<br>E ficam com você.</p><span>Desenvolvido por <a href="https://moraesdev.io" target="_blank" rel="noopener noreferrer">moraesdev.io</a></span><button class="privacy-settings" type="button">Cookies e idioma</button></footer>
   <button class="back-to-top" type="button" aria-label="Voltar ao topo" hidden><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5l0 14"/><path d="M18 11l-6 -6"/><path d="M6 11l6 -6"/></svg></button>
-  <script src="page-controls.js?v=37" defer></script>
+  <aside class="cookie-notice" id="cookie-notice" aria-labelledby="cookie-title" hidden>
+    <div><h2 id="cookie-title">Seu idioma, na próxima visita.</h2><p>Com sua permissão, salvamos o idioma em um cookie e consultamos seu país pelo IP usando Country.is. Sem anúncios ou rastreadores. Você pode recusar e continuar navegando.</p><details><summary>Sobre suas preferências</summary><p>Um cookie registra sua decisão por 6 meses. O idioma só é salvo se você aceitar. A consulta externa recebe seu IP, retorna o país e pode falhar; nesse caso, usamos o idioma do navegador. Você pode mudar a escolha em “Cookies e idioma” no rodapé.</p></details></div>
+    <div class="cookie-actions"><button type="button" data-consent="denied">Recusar opcionais</button><button type="button" data-consent="accepted">Aceitar preferências</button></div>
+  </aside>
+  <script src="page-controls.7ee53a0727b1.js" defer></script>
+  <script src="build-client.d21d30774251.js" defer></script>
 </body>
 </html>
