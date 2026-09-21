@@ -1,6 +1,6 @@
 /* Local illustration only: no NFC reads, device access or navigation. */
 (() => {
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const reducedMotion = window.forjaMotion;
   document.querySelectorAll('[data-nfc-story]').forEach(async (figure) => {
     const stage = figure.querySelector('.nfc-story-stage');
     const fallback = stage?.querySelector('img');

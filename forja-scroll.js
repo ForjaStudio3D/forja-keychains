@@ -5,7 +5,7 @@ const pin = section.querySelector('.color-pin');
 const stage = section.querySelector('.color-stage');
 const canvas = document.querySelector('#forja-scroll');
 const product = document.querySelector('#color-product');
-const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const reduced = window.forjaMotion;
 const context = canvas.getContext('2d');
 const keys = Object.keys(colors), frameCount = 96, cache = new Map();
 let visible = false, raf = 0, revision = 0, lastDraw = '', manualColor = keys[0];

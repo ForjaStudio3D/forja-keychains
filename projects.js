@@ -7,7 +7,7 @@
   const cards = [...track.querySelectorAll('.project')];
   const tabs = [...section.querySelectorAll('[data-client-index]')];
   const panelHost = section.querySelector('.client-panels');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const reduced = window.forjaMotion;
   const names = cards.map(c => c.querySelector('h3').textContent);
   const colors = ['#fff0eb', '#eef3ff', '#edf8f0', '#f3f3f5'];
   const count = cards.length, RESUME_MS = 5000, SPEED = .14;

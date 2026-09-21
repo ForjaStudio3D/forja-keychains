@@ -2,7 +2,7 @@ import {colors} from './color-palette.js?v=26';
 (() => {
   'use strict';
 
-  const stage=document.querySelector('.color-stage'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+  const stage=document.querySelector('.color-stage'),reduced=window.forjaMotion;
   function contact(idea){window.open(`https://wa.me/5518998265902?text=${encodeURIComponent('Olá, Forja! '+idea)}`,'_blank','noopener,noreferrer');}
   document.querySelectorAll('.choose-model').forEach(b=>b.addEventListener('click',()=>contact(b.dataset.finish?`Gostaria de um projeto com ${b.dataset.finish.toLowerCase()}.`:`Gostaria de um projeto inspirado em ${b.dataset.model.replace('Personalizado · ','')}.`)));
   document.querySelector('.color-copy .text-link[href]').addEventListener('click',e=>{e.preventDefault();contact(`Gostaria de criar um chaveiro Forja Studio na cor ${colors[stage.dataset.color].name.toLowerCase()}.`);});

@@ -1,6 +1,6 @@
 (() => {
  const track=document.querySelector('.handsfree-track'),dots=[...document.querySelectorAll('[data-handsfree-index]')],labels=['Preto e dourado · iPhone branco','Branco e azul · iPhone prata'];let current=0;
- const reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ const reduced=window.forjaMotion;
  function go(index){current=(index+2)%2;track.scrollTo({left:current*track.clientWidth,behavior:reduced.matches?'instant':'smooth'});}
  function update(){current=Math.round(track.scrollLeft/track.clientWidth);dots.forEach((dot,i)=>dot.setAttribute('aria-current',String(i===current)));document.querySelector('#handsfree-color').textContent=labels[current];}
  dots.forEach((dot,i)=>dot.addEventListener('click',()=>go(i)));

@@ -26,5 +26,5 @@
 @keyframes nfc-tap-pop{0%,44%,53%,100%{opacity:0}47%,50%{opacity:1}}
 @keyframes nfc-site-open{0%,62%{opacity:.3;transform:translateY(7px)}70%,91%{opacity:1;transform:translateY(0)}100%{opacity:.3;transform:translateY(7px)}}
 @keyframes nfc-success-pop{0%,65%,94%,100%{opacity:0;transform:scale(.85)}73%,87%{opacity:1;transform:scale(1)}}
-@media(prefers-reduced-motion:reduce){.nfc-comic.is-enhanced svg *{animation:none!important}.nfc-comic .nfc-story-toggle{display:none}.nfc-comic .nfc-approach-phone{transform:translate(-24px,-13px)}.nfc-comic .nfc-finger{transform:translate(-1px,-4px)}}
+@media(prefers-reduced-motion:reduce){:where(html:not([data-motion="full"])) .nfc-comic.is-enhanced svg *{animation:none!important}:where(html:not([data-motion="full"])) .nfc-comic .nfc-story-toggle{display:none}:where(html:not([data-motion="full"])) .nfc-comic .nfc-approach-phone{transform:translate(-24px,-13px)}:where(html:not([data-motion="full"])) .nfc-comic .nfc-finger{transform:translate(-1px,-4px)}}
 @media(max-width:760px){.nfc-visual.nfc-comic{max-width:470px}.nfc-comic .nfc-story-footer{gap:10px}.nfc-comic figcaption{font-size:11px}}

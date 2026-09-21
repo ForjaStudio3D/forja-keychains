@@ -9,15 +9,16 @@
   <link rel="icon" href="assets/forja-f-favicon.svg?v=35" type="image/svg+xml">
   <link rel="preload" href="assets/ubuntu-1.ttf" as="font" type="font/ttf" crossorigin>
   
-  <link rel="stylesheet" href="style.css?v=34">
-  <link rel="stylesheet" href="nfc-story.css?v=32">
-  <link rel="stylesheet" href="forja-theme.css?v=35">
-  <script src="nfc-story.js?v=32" defer></script>
-  <script src="handsfree.js?v=19" defer></script>
-  <script src="projects.js?v=34" defer></script>
-  <script src="hero.js?v=35" defer></script>
-  <script type="module" src="forja-scroll.js?v=35"></script>
-  <script type="module" src="app.js?v=35"></script>
+  <script src="motion.js?v=37"></script>
+  <link rel="stylesheet" href="style.css?v=37">
+  <link rel="stylesheet" href="nfc-story.css?v=37">
+  <link rel="stylesheet" href="forja-theme.css?v=37">
+  <script src="nfc-story.js?v=37" defer></script>
+  <script src="handsfree.js?v=37" defer></script>
+  <script src="projects.js?v=37" defer></script>
+  <script src="hero.js?v=37" defer></script>
+  <script type="module" src="forja-scroll.js?v=37"></script>
+  <script type="module" src="app.js?v=37"></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -33,6 +34,7 @@
       <p class="hero-eyebrow">Smart keychain</p>
       <h1 id="hero-title"><span class="hero-purpose-sr">Quem ganha usa, lembra e compartilha.</span><span class="hero-headline" aria-hidden="true">Quem ganha <span class="hero-word-stack"><span class="hero-word-measure">compartilha.</span><span class="hero-verb" data-word="0">usa.</span></span></span></h1>
       <figure class="hero-clean"><video id="hero-video" muted playsinline preload="auto" poster="assets/hero-start-v21.webp" aria-label="Sete chaveiros Sua Marca em verde, amarelo, laranja, rosa, lilás, azul e prata. Três de frente à esquerda, o rosa de perfil no centro e três de costas à direita. Relevos alternados: ímpares baixos e pares altos."><source src="assets/hero-fan-v21.mp4" type="video/mp4"></video></figure>
+      <div class="motion-choice" id="motion-choice" hidden><p id="motion-explanation"></p><button type="button" id="motion-enable" aria-describedby="motion-explanation">Ativar animações</button></div>
       <p class="hero-purpose">Sua marca presente no dia a dia.</p>
       <div class="hero-action"><a class="button" href="https://wa.me/5518998265902" target="_blank" rel="noopener noreferrer">Quero o meu <span aria-hidden="true">↗</span></a><p><strong>A partir de R$ 9,00 por unidade.</strong></p><p class="hero-price-tiers">Cor única R$ 9 · Dual Color R$ 12 · Com NFC R$ 15</p><p class="hero-minimum">Pedido mínimo de 50 unidades. Multicolorido sob consulta.</p></div>
     </section>
@@ -89,8 +91,8 @@
     <section class="relief-section section-shell" id="acabamentos" aria-labelledby="relief-title">
       <div class="section-heading"><h2 id="relief-title">Cor em outra<br><span class="accent">dimensão.</span></h2><p>Alto ou baixo relevo. A identidade do seu projeto ganha contraste, presença e personalidade.</p></div>
       <div class="relief-grid">
-        <article class="relief-card relief-high"><div class="relief-image"><img src="assets/relief-high.webp" alt="Fundação Mirim azul com símbolo e letras brancos em alto relevo" width="768" height="768" loading="lazy"></div><div class="relief-copy"><h3>Alto relevo colorido.</h3><p>Formas que se destacam da superfície.<br>Azul com detalhes em branco.</p><button class="text-link choose-model" type="button" data-model="Fundação Mirim" data-finish-color="Azul com branco" data-finish="Alto relevo colorido, como a Fundação Mirim azul e branca">Escolher esse acabamento <span aria-hidden="true">↗</span></button></div></article>
-        <article class="relief-card relief-low"><div class="relief-image"><img src="assets/relief-low.webp" alt="Fundação Mirim branca com símbolo e letras azuis em baixo relevo" width="768" height="768" loading="lazy"></div><div class="relief-copy"><h3>Baixo relevo colorido.</h3><p>Desenhos que entram na superfície.<br>Branco com detalhes em azul.</p><button class="text-link choose-model" type="button" data-model="Fundação Mirim" data-finish-color="Branco com azul" data-finish="Baixo relevo colorido, como a Fundação Mirim branca e azul">Escolher esse acabamento <span aria-hidden="true">↗</span></button></div></article>
+        <article class="relief-card relief-high"><div class="relief-image"><img src="assets/relief-high-v37.webp" alt="Fundação Mirim azul com símbolo e letras brancos em alto relevo" width="768" height="768" loading="lazy"></div><div class="relief-copy"><h3>Alto relevo colorido.</h3><p>Formas que se destacam da superfície.<br>Azul com detalhes em branco.</p><button class="text-link choose-model" type="button" data-model="Fundação Mirim" data-finish-color="Azul com branco" data-finish="Alto relevo colorido, como a Fundação Mirim azul e branca">Escolher esse acabamento <span aria-hidden="true">↗</span></button></div></article>
+        <article class="relief-card relief-low"><div class="relief-image"><img src="assets/relief-low-v37.webp" alt="Fundação Mirim branca com símbolo e letras azuis em baixo relevo" width="768" height="768" loading="lazy"></div><div class="relief-copy"><h3>Baixo relevo colorido.</h3><p>Desenhos que entram na superfície.<br>Branco com detalhes em azul.</p><button class="text-link choose-model" type="button" data-model="Fundação Mirim" data-finish-color="Branco com azul" data-finish="Baixo relevo colorido, como a Fundação Mirim branca e azul">Escolher esse acabamento <span aria-hidden="true">↗</span></button></div></article>
       </div><p class="fine-print relief-note">Fundação Mirim em dois acabamentos. Cores e composição definidas para cada projeto.</p>
     </section>
 
@@ -101,7 +103,7 @@
       <p class="client-help" id="clients-hint">Clique em um projeto para explorar. Arraste para girar.</p><div class="client-stage" aria-describedby="clients-hint" tabindex="0" role="region" aria-roledescription="carrossel" aria-label="Projetos dos clientes: carrossel contínuo. Clique em um bloco para centralizar e arraste para girar."><div class="client-panels"></div><canvas id="clients-canvas" width="1140" height="480" aria-hidden="true"></canvas></div>
       <div class="collection-grid" tabindex="0" role="region" aria-roledescription="carrossel" aria-label="Projetos dos clientes">
         <article class="project project-maratona"><div class="project-image"><img src="assets/maratona-vermelho-v19.webp" alt="Chaveiro da Maratona de Programação vermelho" width="1000" height="1000" loading="lazy"></div><div class="project-copy"><h3>Maratona de Programação</h3><p>Para quem transforma desafios em ideias.</p><button class="text-link choose-model" type="button" data-model="Maratona de Programação">Quero um projeto assim <span aria-hidden="true">↗</span></button></div></article>
-        <article class="project project-mirim"><div class="project-image"><img src="assets/relief-high.webp" alt="Chaveiro Fundação Mirim azul com alto relevo branco" width="1000" height="1000" loading="lazy"></div><div class="project-copy"><h3>Fundação Mirim</h3><p>Uma lembrança que carrega significado.</p><button class="text-link choose-model" type="button" data-model="Fundação Mirim">Quero um projeto assim <span aria-hidden="true">↗</span></button></div></article>
+        <article class="project project-mirim"><div class="project-image"><img src="assets/relief-high-v37.webp" alt="Chaveiro Fundação Mirim azul com alto relevo branco" width="1000" height="1000" loading="lazy"></div><div class="project-copy"><h3>Fundação Mirim</h3><p>Uma lembrança que carrega significado.</p><button class="text-link choose-model" type="button" data-model="Fundação Mirim">Quero um projeto assim <span aria-hidden="true">↗</span></button></div></article>
         <article class="project project-infoeste"><div class="project-image"><img src="assets/infoeste-verde-v19.webp" alt="Chaveiro INFOESTE verde com a identidade FIPP e Unoeste" width="384" height="384" loading="lazy"></div><div class="project-copy"><h3>INFOESTE</h3><p>Um encontro que conecta ideias e pessoas.</p><button class="text-link choose-model" type="button" data-model="INFOESTE">Quero um projeto assim <span aria-hidden="true">↗</span></button></div></article>
         <article class="project project-linux"><div class="project-image"><img src="assets/linux.webp" alt="Chaveiro Festa Linux com mascote Tux" width="1000" height="1000" loading="lazy"></div><div class="project-copy"><h3>Festa Linux</h3><p>Um mascote que faz parte da comunidade.</p><button class="text-link choose-model" type="button" data-model="Personalizado · Festa Linux">Quero um projeto assim <span aria-hidden="true">↗</span></button></div></article>
         
@@ -139,5 +141,7 @@
     </section>
   </main>
   <footer class="footer section-shell"><a class="brand" href="#inicio"><img src="assets/forja-wordmark-bronze.svg" alt="Forja Studio 3D" width="180" height="60"></a><p>Ideias que saem do papel.<br>E ficam com você.</p><span>Desenvolvido por <a href="https://moraesdev.io" target="_blank" rel="noopener noreferrer">moraesdev.io</a></span></footer>
+  <button class="back-to-top" type="button" aria-label="Voltar ao topo" hidden><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5l0 14"/><path d="M18 11l-6 -6"/><path d="M6 11l6 -6"/></svg></button>
+  <script src="page-controls.js?v=37" defer></script>
 </body>
 </html>
