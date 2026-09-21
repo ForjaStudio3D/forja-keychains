@@ -1,5 +1,5 @@
 {
-  "id": "731f48a54067",
+  "id": "54be3e697729",
   "assets": {
     "nfc-story.js": "nfc-story.908411e19321.js",
     "handsfree.js": "handsfree.671b292e8ee5.js",
@@ -8,12 +8,12 @@
     "projects.js": "projects.e69e1c94d8ea.js",
     "hero.js": "hero.555c546ce65f.js",
     "page-controls.js": "page-controls.7ee53a0727b1.js",
-    "build-client.js": "build-client.d21d30774251.js",
-    "language.js": "language.0492eff34e05.js",
+    "build-client.js": "build-client.342505b7098b.js",
+    "language.js": "language.317ef6613cf3.js",
     "motion.js": "motion.16168b814a57.js",
     "style.css": "style.84b6e27d1984.css",
     "nfc-story.css": "nfc-story.00bd70c0e434.css",
-    "forja-theme.css": "forja-theme.7bf2efef60b7.css",
+    "forja-theme.css": "forja-theme.9a5cbe89c229.css",
     "color-palette.js": "color-palette.8f85882c2a3a.js",
     "forja-scroll.js": "forja-scroll.af15f598e505.js",
     "app.js": "app.fe0cfd8a34f7.js"
