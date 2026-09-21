@@ -3,8 +3,11 @@
   const reduced=matchMedia('(prefers-reduced-motion: reduce)');
   const states=new Map([...document.querySelectorAll('.detail-film')].map(video=>[video,{visible:false,done:false}]));
   function sync(video,state){
-    if(reduced.matches||document.hidden||!state.visible||state.done){video.pause();return;}
-    if(video.paused)video.play().catch(()=>{});
+    if(reduced.matches||document.hidden||!state.visible||state.done){video.pause();if(reduced.matches&&state.button)state.button.hidden=true;return;}
+    if(video.paused)video.play().then(()=>{if(state.button)state.button.hidden=true;}).catch(()=>{
+      if(!state.button){state.button=document.createElement('button');state.button.type='button';state.button.className='media-start';state.button.textContent='Ver o giro';state.button.addEventListener('click',()=>sync(video,state));video.after(state.button);}
+      state.button.hidden=reduced.matches||state.done;
+    });
   }
   const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
     const state=states.get(entry.target);state.visible=entry.isIntersecting&&entry.intersectionRatio>=.35;sync(entry.target,state);

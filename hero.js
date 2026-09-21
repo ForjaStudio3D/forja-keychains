@@ -1,7 +1,10 @@
 (() => {
  const video=document.querySelector('#hero-video'),reduced=matchMedia('(prefers-reduced-motion: reduce)');let visible=false,done=false;
- video.muted=true;
- function sync(){if(done||reduced.matches||document.hidden||!visible){video.pause();return;}video.play().catch(()=>{});}
+ const playButton=document.createElement('button');playButton.type='button';playButton.className='media-start';playButton.textContent='Ver a apresentação';playButton.hidden=true;video.closest('figure').append(playButton);
+ video.muted=true;video.defaultMuted=true;
+ function play(){video.play().then(()=>{playButton.hidden=true;}).catch(()=>{playButton.hidden=done||reduced.matches;});}
+ function sync(){if(done||reduced.matches||document.hidden||!visible){video.pause();if(reduced.matches)playButton.hidden=true;return;}play();}
+ playButton.addEventListener('click',play);
  video.addEventListener('ended',()=>{done=true;video.dataset.ended='true';});
  new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync();},{threshold:0}).observe(video);
  document.addEventListener('visibilitychange',sync);reduced.addEventListener('change',()=>{if(reduced.matches){video.pause();video.hidden=true;}else{video.hidden=false;sync();}});
