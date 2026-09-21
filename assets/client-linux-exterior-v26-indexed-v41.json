@@ -1,0 +1,1 @@
+{"materials": ["CORPO", "#111111", "#FEC600", "#F6F6F3"], "groups": [{"start": 0, "count": 101514, "materialIndex": 0}, {"start": 101514, "count": 18939, "materialIndex": 1}, {"start": 120453, "count": 40953, "materialIndex": 2}, {"start": 161406, "count": 10452, "materialIndex": 3}], "vertexBytes": 1028856, "indexCount": 171858}
