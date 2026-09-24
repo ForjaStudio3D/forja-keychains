@@ -20,11 +20,12 @@ export async function createClientsViewer(canvas) {
   const sources = ['client-maratona-exterior-v26', 'client-mirim-exterior-v26', 'client-infoeste-exterior-v26', 'client-linux-exterior-v26'];
   const colors = ['#C8202D', '#1B4FD8', '#168C49', '#1A1A1A'];
   const models = await Promise.all(sources.map(async (name, index) => {
-    const [dataResponse, metaResponse] = await Promise.all([fetch(`assets/${name}.dat`), fetch(`assets/${name}.json`)]);
+    const [dataResponse, metaResponse] = await Promise.all([fetch(`assets/${name}-indexed-v41.bin`), fetch(`assets/${name}-indexed-v41.json`)]);
     if (!dataResponse.ok || !metaResponse.ok) throw Error('Client model unavailable');
     const [data, meta] = await Promise.all([dataResponse.arrayBuffer(), metaResponse.json()]);
-    const buffer = new T.InterleavedBuffer(new Float32Array(data), 6);
+    const buffer = new T.InterleavedBuffer(new Float32Array(data, 0, meta.vertexBytes / 4), 6);
     const geometry = new T.BufferGeometry();
+    geometry.setIndex(new T.BufferAttribute(new Uint32Array(data, meta.vertexBytes, meta.indexCount), 1));
     geometry.setAttribute('position', new T.InterleavedBufferAttribute(buffer, 3, 0));
     geometry.setAttribute('normal', new T.InterleavedBufferAttribute(buffer, 3, 3));
     meta.groups.forEach(group => geometry.addGroup(group.start, group.count, group.materialIndex));

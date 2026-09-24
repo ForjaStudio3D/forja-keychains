@@ -1,4 +1,4 @@
-import {colors} from './color-palette.js?v=26';
+import {colors} from './color-palette.5cda01ce2f8f.js';
 
 const section = document.querySelector('#cores');
 const pin = section.querySelector('.color-pin');

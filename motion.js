@@ -3,7 +3,7 @@
   const system = window.matchMedia('(prefers-reduced-motion: reduce)');
   const events = new EventTarget(), storageKey = 'forja-motion';
   let preference = 'system';
-  try {if (localStorage.getItem(storageKey) === 'full') preference = 'full';} catch {}
+  try {if (window.forjaI18n?.consent === 'accepted' && localStorage.getItem(storageKey) === 'full') preference = 'full';} catch {}
   function sync() {
     document.documentElement.dataset.motion = preference;
     events.dispatchEvent(new Event('change'));
@@ -14,9 +14,13 @@
     get preference() {return preference;},
     addEventListener: events.addEventListener.bind(events),
     removeEventListener: events.removeEventListener.bind(events),
+    persist() {
+      if(window.forjaI18n?.consent !== 'accepted') return;
+      try {if(preference === 'full') localStorage.setItem(storageKey,'full');else localStorage.removeItem(storageKey);} catch {}
+    },
     setPreference(value) {
       preference = value === 'full' ? 'full' : 'system';
-      try {if (preference === 'full') localStorage.setItem(storageKey, 'full'); else localStorage.removeItem(storageKey);} catch {}
+      this.persist();
       sync();
     }
   };

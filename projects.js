@@ -66,7 +66,8 @@
         button.style.transform = `translate3d(${panel.x}px,0,0)`;
         button.style.backgroundColor = colors[panel.index];
         button.dataset.slot = String(i);
-        button.setAttribute('aria-label', `${names[panel.index]}. Centralizar e explorar em 3D.`);
+        const label=window.forjaI18n.t(`${names[panel.index]}. Centralizar e explorar em 3D.`);
+        if(button.getAttribute('aria-label')!==label)button.setAttribute('aria-label',label);
         button.setAttribute('aria-hidden', String(!onscreen));
         button.tabIndex = onscreen && Math.abs(panel.relative) < count / 2 ? 0 : -1;
       });
@@ -164,9 +165,12 @@
     else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') select(wrap(active + (e.key === 'ArrowRight' ? 1 : -1)), true);
   });
   new IntersectionObserver(([entry]) => {
-    visible = entry.isIntersecting && entry.intersectionRatio >= .15;
+    visible = entry.isIntersecting;
     if (visible) prepare(); sync();
-  }, {threshold: [0, .15]}).observe(section.querySelector('.collection-pin'));
+  }, {threshold: 0}).observe(section.querySelector('.collection-pin'));
+  const preload=new IntersectionObserver(([entry])=>{if(entry.isIntersecting){prepare();preload.disconnect();}},{rootMargin:'600px',threshold:0});preload.observe(section);
+  window.addEventListener('pageshow',sync);
+  canvas.addEventListener('webglcontextrestored',sync);
   new ResizeObserver(sync).observe(stage);
   document.addEventListener('visibilitychange', sync);
   reduced.addEventListener('change', () => {centering = null; position = Math.round(position); sync();});
