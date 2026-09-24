@@ -118,7 +118,7 @@
   }
   async function prepare() {
     if (viewer || pending || fallback) return;
-    pending = import('./clients-renderer.js?v=32').then(m => m.createClientsViewer(canvas)).then(v => {
+    pending = import('./clients-renderer.510a8a3537c5.js').then(m => m.createClientsViewer(canvas)).then(v => {
       viewer = v; section.classList.add('has-3d-clients'); sync();
     }).catch(() => {fallback = true; section.classList.add('clients-fallback'); stage.hidden = true; sync();});
   }

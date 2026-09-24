@@ -180,7 +180,7 @@ input,textarea{caret-color:var(--brand)}
    telas lerem como a mesma composição em tamanhos diferentes. */
 .hero-stage{position:relative;width:min(1240px,100%);margin:0 auto;isolation:isolate;--hero-title-inset:20px}
 .hero .hero-clean{width:100%;height:auto;aspect-ratio:40/19;margin:0;
-  background:var(--paper) var(--hero-poster,url('assets/hero-fan-v45-br.webp')) center/contain no-repeat}
+  background:var(--paper) var(--hero-poster,url('assets/hero-fan-v45-br.webp?v=aa3c20f10db3')) center/contain no-repeat}
 .hero-overlay{position:absolute;left:0;right:0;top:0;padding:var(--hero-title-inset) 16px 0;
   text-align:center;pointer-events:none;z-index:2;
   opacity:0;transform:translateY(14px);
