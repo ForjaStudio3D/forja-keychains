@@ -17,11 +17,11 @@ export async function createClientsViewer(canvas) {
   const fill = new T.DirectionalLight(0xffffff, .55);
   fill.position.set(70, 15, 110);
   scene.add(fill);
-  const sources = ['client-maratona-exterior-v26', 'client-mirim-exterior-v26', 'client-colodefono-exterior-v26', 'client-linux-exterior-v26'];
+  const sources = ['client-maratona-exterior-v26', 'client-mirim-exterior-v26', 'client-colodefono-exterior-v26', 'client-linux-exterior-v26', 'client-enforma-pink-exterior-v48'];
   // Cor do corpo por projeto, na mesma ordem de `sources`: o material CORPO
   // do modelo herda esta entrada. Incluir um projeto sem incluir a cor deixa
   // o novo com a cor do vizinho e o ultimo sem cor nenhuma.
-  const colors = ['#C8202D', '#1B4FD8', '#F2F2EF', '#1A1A1A'];
+  const colors = ['#C8202D', '#1B4FD8', '#F2F2EF', '#1A1A1A', '#ED4BA5'];
   const models = await Promise.all(sources.map(async (name, index) => {
     const [dataResponse, metaResponse] = await Promise.all([fetch(`assets/${name}-indexed-v41.bin`), fetch(`assets/${name}-indexed-v41.json`)]);
     if (!dataResponse.ok || !metaResponse.ok) throw Error('Client model unavailable');
@@ -68,7 +68,7 @@ export async function createClientsViewer(canvas) {
         renderer.setScissor(left, 0, right - left, height);
         renderer.clearDepth();
         model.mesh.visible = true;
-        model.mesh.rotation.set(panel.pitch, panel.yaw, 0);
+        model.mesh.rotation.set(panel.pitch, panel.yaw, panel.roll || 0);
         renderer.render(scene, camera);
         model.mesh.visible = false;
       });
@@ -76,6 +76,7 @@ export async function createClientsViewer(canvas) {
       canvas.dataset.position = position.toFixed(4);
       canvas.dataset.yaws = panels.map(panel => panel.yaw.toFixed(4)).join(',');
       canvas.dataset.pitches = panels.map(panel => panel.pitch.toFixed(4)).join(',');
+      canvas.dataset.rolls = panels.map(panel => (panel.roll || 0).toFixed(4)).join(',');
     },
     dispose() {
       models.forEach(({mesh}) => {mesh.geometry.dispose(); mesh.material.forEach(m => m.dispose());});

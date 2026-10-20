@@ -1,13 +1,13 @@
 (() => {
   // Canonical catalog prices in BRL. English presentation uses the agreed 5:1 reference conversion.
-  const PRICES = Object.freeze({single:9, dual:12, nfc:15, lotSingle:450, lotDual:600, lotNfc:750, minimum:50});
+  const PRICES = window.FORJA_PRICES;
   const translations = {
     'Chaveiros Forja Studio 3D. Cores que marcam, projetos que ficam. Conheça a coleção e imagine o seu personalizado.':'Forja Studio 3D keychains. Memorable colors and lasting designs. Explore our collection and imagine your own custom project.',
     'Chaveiros. Feitos para ficar. | Forja Studio 3D':'Keychains. Made to stay. | Forja Studio 3D',
     'Pular para o conteúdo':'Skip to content','Forja Studio 3D, início':'Forja Studio 3D, home','Navegação principal':'Main navigation',
     'Cores':'Colors','Coleção':'Collection','Acabamentos':'Finishes','Clientes':'Clients','Comprar agora':'Buy now','Quem ganha usa, lembra e compartilha.':'A gift to use, remember and share.',
     'Quem ganha':'A gift to','usa.':'use.','lembra.':'remember.','compartilha.':'share.',
-    'Sua marca presente no dia a dia.':'Your brand, part of every day.','Quero o meu':'I want mine','A partir de R$ 450,00':'From R$450.00','lote de 50 unidades':'batch of 50','Mais opções':'More options',
+    'Sua marca presente no dia a dia.':'Your brand, part of every day.','Quero o meu':'I want mine','A partir de R$ 350,00':'From R$350.00','lote de 50 unidades':'batch of 50','Mais opções':'More options',
     'Seu evento.':'Your event.','Seu tom.':'Your color.','Cinco cores. Uma volta completa.':'Five colors. One full turn.','Role para encontrar a sua.':'Scroll to find yours.',
     'Escolha a cor do chaveiro':'Choose a keychain color','Branco':'White','Preto':'Black','Azul':'Blue','Vermelho':'Red','Roxo':'Purple','Amarelo':'Yellow','Laranja':'Orange','Verde':'Green',
     'Quero outra cor':'I want another color','Simulação de cores. Disponibilidade e acabamento confirmados no orçamento.':'Colors are illustrative. Availability and finish are confirmed in your quote.',
@@ -46,12 +46,22 @@
     'Fundação Mirim em dois acabamentos. Cores e composição definidas para cada projeto.':'Fundação Mirim in two finishes. Colors and layout are tailored to each project.',
     'Projetos de clientes.':'Client projects.','Identidades que já ganhar forma aqui na Forja.':'Brands brought to life at Forja.','Identidades que já ganharam forma aqui na Forja.':'Brands brought to life at Forja.','Arraste para o lado para conhecer os projetos.':'Drag sideways to explore the projects.',
     'Projetos dos clientes em carrossel contínuo. Arraste para os lados ou use as setas do teclado.':'Client projects in a continuous carousel. Drag sideways or use the keyboard arrows.','Projetos dos clientes':'Client projects',
-    'Dois chaveiros Enforma Kids, rosa e azul, apoiados na mão, com relevos coloridos e pequenos mosquetões':'Two Enforma Kids keychains, pink and blue, held in a hand, with colored relief and small carabiners','Rosa e azul. Feitos para ficar.':'Pink and blue. Made to stay.','Imagem criada a partir da foto das peças reais.':'Image created from a photo of the real products.','Para quem transforma desafios em ideias.':'For those who turn challenges into ideas.','Quero um projeto assim':'I want a project like this','Uma lembrança que carrega significado.':'A keepsake with meaning.',
+    'Dois chaveiros Enforma Kids, rosa e azul, apoiados na mão, com relevos coloridos e pequenos mosquetões':'Two Enforma Kids keychains, pink and blue, held in a hand, with colored relief and small carabiners','Rosa e azul. Feitos para ficar.':'Pink and blue. Made to stay.','Imagem criada a partir da foto das peças reais.':'Image created from a photo of the real products.','Para quem transforma desafios em ideias.':'For those who turn challenges into ideas.','Quero um projeto assim':'I want a project like this','Uma lembrança que carrega significado.':'A keepsake with meaning.','Chaveiro Enforma Kids rosa com relevo colorido':'Pink Enforma Kids keychain with colored relief','Uma cor que deixa a lembrança ainda mais viva.':'A color that makes the memory even more vivid.','Personalizado · Enforma Kids':'Custom · Enforma Kids',
     'Um encontro que conecta ideias e pessoas.':'A gathering that connects ideas and people.','Um mascote que faz parte da comunidade.':'A mascot that belongs to the community.','Selecionar projeto':'Select a project','Projeto anterior':'Previous project','Próximo projeto':'Next project',
     'Sua marca.':'Your brand.','Do seu jeito.':'Your way.','Cor única':'Single color','Com NFC':'With NFC','R$ 9':'R$9','R$ 12':'R$12','R$ 15':'R$15',',00':'.00',
+    'Preços por unidade':'Prices per unit','Escolha quantas cores vão dar vida à sua ideia.':'Choose how many colors will bring your idea to life.',
+    '1 cor':'1 color','2 cores':'2 colors','3 cores':'3 colors','4 cores':'4 colors',
+    'Personalize o pedido':'Make it yours','Acessórios opcionais.':'Optional accessories.','Valores adicionais por unidade.':'Additional prices per unit.',
+    'Mosquetão':'Mini carabiner','Pequeno, leve e pronto para acompanhar.':'Small, light and ready to go.','Foto ilustrativa do acessório.':'Illustrative product photo.',
+    'Um toque para abrir o site da sua marca.':'One tap to open your brand’s website.','Entenda como funciona':'See how it works','Ver como funciona o NFC':'See how NFC works',
+    'Enviar minha logo':'Send my logo','Envie sua logo pelo WhatsApp. Preparamos uma prévia e, após sua aprovação, enviamos o link de pagamento.':'Send your logo on WhatsApp. We will prepare a preview and, after your approval, send a payment link.',
+    'Pedido mínimo de 50 unidades. Ofertas especiais para pedidos acima de 1.000 unidades.':'Minimum order: 50 units. Special offers for orders over 1,000 units.',
+    'Frete, prazo de produção e disponibilidade dos acessórios são confirmados no orçamento.':'Shipping, production lead time and accessory availability are confirmed in your quote.',
+    'Termos de compra':'Purchase terms',
     'por unidade · lote de 50 por R$ 450,00':'per unit · 50 for R$450.00','por unidade · lote de 50 por R$ 600,00':'per unit · 50 for R$600.00','por unidade · lote de 50 por R$ 750,00':'per unit · 50 for R$750.00',
     'Multicolorido: consultar projeto.':'Multicolor: request a project quote.','Pedido mínimo de 50 unidades. Ofertas especiais para pedidos acima de 1.000 unidades.':'Minimum order: 50 units. Special offers for orders over 1,000 units.','Frete e prazo de produção são confirmados no orçamento.':'Shipping and taxes are not included and are quoted separately.',
     'Vamos dar forma':'Let’s give shape','à sua ideia?':'to your idea?','Conte o que você imagina para a sua marca ou evento. A conversa começa por aqui.':'Tell us what you have in mind for your brand or event. Start the conversation here.',
+    'Conte a ideia ou envie sua logo no WhatsApp. Devolvemos a prévia para aprovação e o orçamento com o link de pagamento.':'Describe your idea or send your logo on WhatsApp. We will return a preview for approval and a quote with the payment link.',
     'O que você tem em mente?':'What do you have in mind?','Quero um chaveiro com as cores da minha marca e NFC para o nosso site…':'I’d like a keychain in my brand’s colors, with NFC for our website…',
     'Seu texto vai com você para a conversa no WhatsApp.':'Your message will be included in the WhatsApp conversation.','Quero algo assim':'I want something like this','Ideias que saem do papel.':'Ideas brought to life.','E ficam com você.':'And made to stay with you.','Desenvolvido por':'Built by','Voltar ao topo':'Back to top',
     'Cookies e idioma':'Cookies and language','Cookies e preferências':'Cookies and preferences',
@@ -81,12 +91,10 @@
   if(['en','pt-BR'].includes(fromURL)){lang=fromURL;manual=true;}
   document.documentElement.lang=lang;
   function t(value){const raw=value.trim(),pt=reverse[raw]||raw;const next=lang==='en'?(translations[pt]||raw):pt;return value.replace(raw,next);}
-  function money(value){return new Intl.NumberFormat(lang==='en'?'en-US':'pt-BR',{style:'currency',currency:lang==='en'?'USD':'BRL',minimumFractionDigits:2}).format(lang==='en'?value/5:value);}
+  function money(value){return new Intl.NumberFormat(lang==='en'?'en-US':'pt-BR',{style:'currency',currency:lang==='en'?'USD':'BRL',minimumFractionDigits:2}).format(lang==='en'?value/PRICES.brlPerUsd:value);}
   function updatePrices(){
-    const values={single:PRICES.single,dual:PRICES.dual,nfc:PRICES.nfc,lot:PRICES.lotSingle};
-    document.querySelectorAll('[data-price]').forEach(element=>{const key=element.dataset.price; if(values[key]!=null)element.textContent=key==='lot'?(lang==='en'?`From ${money(values[key])}`:`A partir de ${money(values[key])}`):money(values[key]);});
-    const lots={single:PRICES.lotSingle,dual:PRICES.lotDual,nfc:PRICES.lotNfc};
-    document.querySelectorAll('[data-price-copy]').forEach(element=>{const key=element.dataset.priceCopy; if(lots[key]!=null)element.textContent=lang==='en'?`per unit · ${PRICES.minimum} for ${money(lots[key])}`:`por unidade · lote de ${PRICES.minimum} por ${money(lots[key])}`;});
+    document.querySelectorAll('[data-price]').forEach(element=>{const key=element.dataset.price;const value=key==='lot'?PRICES.single*PRICES.minimum:PRICES[key];if(value!=null)element.textContent=key==='lot'?(lang==='en'?`From ${money(value)}`:`A partir de ${money(value)}`):`${key==='carabiner'||key==='nfcAddon'?'+ ':''}${money(value)}`;});
+    document.querySelectorAll('[data-price-copy]').forEach(element=>{const unit=PRICES[element.dataset.priceCopy];if(unit!=null)element.textContent=lang==='en'?`per unit · ${PRICES.minimum} for ${money(unit*PRICES.minimum)}`:`por unidade · lote de ${PRICES.minimum} por ${money(unit*PRICES.minimum)}`;});
   }
   function translate(root){
     if(root.nodeType===3){if(!['SCRIPT','STYLE','TEXTAREA','OPTION'].includes(root.parentElement?.tagName)){const value=t(root.nodeValue);if(value!==root.nodeValue)root.nodeValue=value;}return;}

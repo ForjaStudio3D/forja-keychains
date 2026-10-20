@@ -3,9 +3,16 @@ import {colors} from './color-palette.js?v=26';
   'use strict';
 
   const stage=document.querySelector('.color-stage'),reduced=window.forjaMotion;
-  function contact(idea){window.open(`https://wa.me/5518998265902?text=${encodeURIComponent((window.forjaI18n.lang==='en'?'Hello, Forja! ':'Olá, Forja! ')+idea)}`,'_blank','noopener,noreferrer');}
+  const whatsapp='5518997907397';
+  function contact(idea){window.open(`https://wa.me/${whatsapp}?text=${encodeURIComponent((window.forjaI18n.lang==='en'?'Hello, Forja! ':'Olá, Forja! ')+idea)}`,'_blank','noopener,noreferrer');}
+  function quoteLink(){
+    const message=window.forjaI18n.lang==='en'?'About the Smart keychain: I would like to send my logo, receive a preview and a quote with the payment link.':'Sobre o keychain smart: quero enviar minha logo, receber uma prévia e o orçamento com o link de pagamento.';
+    document.querySelectorAll('[data-quote-cta]').forEach(link=>link.href=`https://wa.me/${whatsapp}?text=${encodeURIComponent(message)}`);
+  }
+  quoteLink();document.addEventListener('forja:language',quoteLink);
   document.querySelectorAll('.choose-model').forEach(b=>b.addEventListener('click',()=>contact(b.dataset.finish?(window.forjaI18n.lang==='en'?`I would like a project with ${b.dataset.finish}.`:`Gostaria de um projeto com ${b.dataset.finish.toLowerCase()}.`):(window.forjaI18n.lang==='en'?`I would like a project inspired by ${b.dataset.model.replace('Personalizado · ','')}.`:`Gostaria de um projeto inspirado em ${b.dataset.model.replace('Personalizado · ','')}.`))));
-  document.querySelector('.color-copy .text-link[href]').addEventListener('click',e=>{e.preventDefault();contact(window.forjaI18n.lang==='en'?`I would like a Forja Studio keychain in ${window.forjaI18n.t(colors[stage.dataset.color].name).toLowerCase()}.`:`Gostaria de criar um chaveiro Forja Studio na cor ${colors[stage.dataset.color].name.toLowerCase()}.`);});
+  const colorContact = document.querySelector('.color-copy .text-link[href]');
+  if (colorContact && stage) colorContact.addEventListener('click',e=>{e.preventDefault();contact(window.forjaI18n.lang==='en'?`I would like a Forja Studio keychain in ${window.forjaI18n.t(colors[stage.dataset.color].name).toLowerCase()}.`:`Gostaria de criar um chaveiro Forja Studio na cor ${colors[stage.dataset.color].name.toLowerCase()}.`);});
   const ideaForm=document.querySelector('#idea-form'),ideaInput=document.querySelector('#visitor-idea');
   // Native form submission opens a WhatsApp draft; only the visitor sends it.
   ideaForm.addEventListener('formdata',event=>{

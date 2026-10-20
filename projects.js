@@ -8,14 +8,14 @@
   const panelHost = section.querySelector('.client-panels');
   const reduced = window.forjaMotion;
   const names = cards.map(card => card.querySelector('h3').textContent);
-  const colors = ['#fff0eb', '#eef3ff', '#f4f0f7', '#f3f3f5'];
+  const colors = ['#fff0eb', '#eef3ff', '#f4f0f7', '#f3f3f5', '#fff0f5'];
   const count = cards.length;
-  const RESUME_MS = 5000, SPEED = .147;
+  const RESUME_MS = 1000, SPEED = .147;
   const wrap = value => ((value % count) + count) % count;
   const ease = value => 1 - (1 - value) ** 3;
   let position = 0, active = -1, viewer, pending, fallback = false;
   let visible = false, raf = 0, last = 0;
-  let resumeAt = 0, resumeTimer = 0, drag = null, centering = null, keyboardFocus = false;
+  let resumeAt = 0, resumeTimer = 0, drag = null, centering = null;
   const slots = Array.from({length: 9}, () => {
     const panel = document.createElement('div');
     panel.className = 'client-panel';
@@ -40,11 +40,13 @@
     const fraction = position - Math.floor(position);
     const center = result[4].center * (1 - fraction) + result[5].center * fraction;
     return result.map(panel => {
-      const distance = Math.abs(panel.relative);
-      const turn = Math.min(1, Math.max(0, (distance - .45) / 1.55));
-      // A slight studio three-quarter view reveals the same-color Maratona relief.
-      const yaw = Math.sign(panel.relative) * Math.PI * turn * turn * (3 - 2 * turn) + (panel.index === 0 ? .27 : 0);
-      return {...panel, x: panel.x + width / 2 - center, yaw, pitch: 0};
+      // One continuous, shared quarter turn per card: every model rotates as the
+      // belt advances and reaches its own intended pose in the center.
+      const facing = [0, 0, 0, Math.PI / 4, 0][panel.index];
+      const yaw = panel.relative * Math.PI / 2 + facing;
+      const roll = panel.index === 2 ? Math.PI : 0; // Colo de Fono was designed inverted.
+      const pitch = panel.index === 3 ? -Math.PI / 6 : 0;
+      return {...panel, x: panel.x + width / 2 - center, yaw, pitch, roll};
     });
   }
 
@@ -58,7 +60,7 @@
   }
   function playing() {
     return !reduced.matches && visible && !document.hidden && !drag && !centering &&
-      !keyboardFocus && performance.now() >= resumeAt;
+      performance.now() >= resumeAt;
   }
   function paint() {
     labels();
@@ -116,7 +118,6 @@
   }
   stage.addEventListener('pointerdown', event => {
     if (!event.isPrimary || event.button !== 0 || !viewer) return;
-    keyboardFocus = false;
     centering = null;
     drag = {id: event.pointerId, x: event.clientX, position};
     stage.setPointerCapture(event.pointerId);
@@ -139,8 +140,6 @@
   stage.addEventListener('pointerup', release);
   stage.addEventListener('pointercancel', release);
   stage.addEventListener('lostpointercapture', release);
-  section.addEventListener('focusin', event => {if (event.target.matches(':focus-visible')) {keyboardFocus = true; hold();}});
-  section.addEventListener('focusout', event => {if (!section.contains(event.relatedTarget)) {keyboardFocus = false; delayResume();}});
   stage.addEventListener('keydown', event => {
     if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
     event.preventDefault();
