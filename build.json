@@ -1,22 +1,21 @@
 {
-  "id": "4befa0ebe05d",
+  "id": "60fd2f6d2dc4",
   "assets": {
-    "loader.js": "loader.db9b2ef4c41b.js",
+    "loader.js": "loader.3de25e5deee6.js",
     "nfc-story.js": "nfc-story.908411e19321.js",
     "carousel.js": "carousel.761e04e31b40.js",
     "vendor/three.module.js": "vendor/three.module.0a3368c165ee.js",
-    "clients-renderer.js": "clients-renderer.3cddf7a6511b.js",
-    "projects.js": "projects.9a176177c8bc.js",
+    "clients-renderer.js": "clients-renderer.cc42c3cab1f8.js",
+    "projects.js": "projects.899573acdec5.js",
     "hero.js": "hero.58256eab1844.js",
     "page-controls.js": "page-controls.3cf09035438d.js",
     "build-client.js": "build-client.342505b7098b.js",
-    "language.js": "language.c9effff1ebb2.js",
+    "language.js": "language.6ff784594380.js",
     "motion.js": "motion.402275248c82.js",
     "style.css": "style.970765ca08e6.css",
     "nfc-story.css": "nfc-story.00bd70c0e434.css",
-    "forja-theme.css": "forja-theme.1a622309c650.css",
+    "forja-theme.css": "forja-theme.e8483933128e.css",
     "color-palette.js": "color-palette.5cda01ce2f8f.js",
-    "forja-scroll.js": "forja-scroll.c6059223fff2.js",
     "app.js": "app.c39a9f8e88d5.js"
   }
 }

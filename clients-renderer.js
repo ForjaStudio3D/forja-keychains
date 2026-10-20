@@ -9,19 +9,19 @@ export async function createClientsViewer(canvas) {
   const scene = new T.Scene();
   const camera = new T.OrthographicCamera(-50, 50, 50, -50, .1, 500);
   camera.position.z = 160;
-  scene.add(new T.HemisphereLight(0xffffff, 0x667080, 1.8));
+  scene.add(new T.HemisphereLight(0xffffff, 0x667080, 1.0));
   // Studio lights stay in front of the viewer while the object rotates.
-  const key = new T.DirectionalLight(0xffffff, 2.6);
-  key.position.set(-65, 85, 100);
+  const key = new T.DirectionalLight(0xffffff, 3.0);
+  key.position.set(-110, 70, 48);
   scene.add(key);
-  const fill = new T.DirectionalLight(0xffffff, .8);
-  fill.position.set(70, 15, 90);
+  const fill = new T.DirectionalLight(0xffffff, .55);
+  fill.position.set(70, 15, 110);
   scene.add(fill);
-  const sources = ['client-maratona-exterior-v26', 'client-mirim-exterior-v26', 'client-infoeste-exterior-v26', 'client-colodefono-exterior-v26', 'client-linux-exterior-v26'];
+  const sources = ['client-maratona-exterior-v26', 'client-mirim-exterior-v26', 'client-colodefono-exterior-v26', 'client-linux-exterior-v26'];
   // Cor do corpo por projeto, na mesma ordem de `sources`: o material CORPO
   // do modelo herda esta entrada. Incluir um projeto sem incluir a cor deixa
   // o novo com a cor do vizinho e o ultimo sem cor nenhuma.
-  const colors = ['#C8202D', '#1B4FD8', '#168C49', '#F2F2EF', '#1A1A1A'];
+  const colors = ['#C8202D', '#1B4FD8', '#F2F2EF', '#1A1A1A'];
   const models = await Promise.all(sources.map(async (name, index) => {
     const [dataResponse, metaResponse] = await Promise.all([fetch(`assets/${name}-indexed-v41.bin`), fetch(`assets/${name}-indexed-v41.json`)]);
     if (!dataResponse.ok || !metaResponse.ok) throw Error('Client model unavailable');
@@ -44,7 +44,7 @@ export async function createClientsViewer(canvas) {
   }));
   let width = 0, height = 0;
   return {
-    draw(position, panels, angles) {
+    draw(position, panels) {
       const rect = canvas.getBoundingClientRect();
       if (!rect.width || !rect.height) return;
       if (width !== rect.width || height !== rect.height) {
@@ -60,7 +60,7 @@ export async function createClientsViewer(canvas) {
         if (right <= left) return;
         const model = models[panel.index];
         const aspect = panel.width / height;
-        const halfHeight = model.radius * 1.2 / Math.min(1, aspect);
+        const halfHeight = model.radius * (width < 600 ? .72 : 1.2) / Math.min(1, aspect);
         camera.left = -halfHeight * aspect; camera.right = halfHeight * aspect;
         camera.top = halfHeight; camera.bottom = -halfHeight;
         camera.updateProjectionMatrix();
@@ -68,14 +68,14 @@ export async function createClientsViewer(canvas) {
         renderer.setScissor(left, 0, right - left, height);
         renderer.clearDepth();
         model.mesh.visible = true;
-        model.mesh.rotation.set(angles[panel.index].pitch, angles[panel.index].yaw, 0);
+        model.mesh.rotation.set(panel.pitch, panel.yaw, 0);
         renderer.render(scene, camera);
         model.mesh.visible = false;
       });
       renderer.setScissorTest(false);
       canvas.dataset.position = position.toFixed(4);
-      canvas.dataset.yaws = angles.map(a => a.yaw.toFixed(4)).join(',');
-      canvas.dataset.pitches = angles.map(a => a.pitch.toFixed(4)).join(',');
+      canvas.dataset.yaws = panels.map(panel => panel.yaw.toFixed(4)).join(',');
+      canvas.dataset.pitches = panels.map(panel => panel.pitch.toFixed(4)).join(',');
     },
     dispose() {
       models.forEach(({mesh}) => {mesh.geometry.dispose(); mesh.material.forEach(m => m.dispose());});

@@ -5,7 +5,7 @@
     'Chaveiros Forja Studio 3D. Cores que marcam, projetos que ficam. Conheça a coleção e imagine o seu personalizado.':'Forja Studio 3D keychains. Memorable colors and lasting designs. Explore our collection and imagine your own custom project.',
     'Chaveiros. Feitos para ficar. | Forja Studio 3D':'Keychains. Made to stay. | Forja Studio 3D',
     'Pular para o conteúdo':'Skip to content','Forja Studio 3D, início':'Forja Studio 3D, home','Navegação principal':'Main navigation',
-    'Cores':'Colors','Coleção':'Collection','Comprar agora':'Buy now','Quem ganha usa, lembra e compartilha.':'A gift to use, remember and share.',
+    'Cores':'Colors','Coleção':'Collection','Acabamentos':'Finishes','Clientes':'Clients','Comprar agora':'Buy now','Quem ganha usa, lembra e compartilha.':'A gift to use, remember and share.',
     'Quem ganha':'A gift to','usa.':'use.','lembra.':'remember.','compartilha.':'share.',
     'Sua marca presente no dia a dia.':'Your brand, part of every day.','Quero o meu':'I want mine','A partir de R$ 450,00':'From R$450.00','lote de 50 unidades':'batch of 50','Mais opções':'More options',
     'Seu evento.':'Your event.','Seu tom.':'Your color.','Cinco cores. Uma volta completa.':'Five colors. One full turn.','Role para encontrar a sua.':'Scroll to find yours.',
@@ -44,9 +44,9 @@
     'Escolher esse acabamento':'Choose this finish','Azul com branco':'Blue and white','Branco com azul':'White and blue',
     'Alto relevo colorido, como a Fundação Mirim azul e branca':'colored raised relief, like the blue and white Fundação Mirim keychain','Baixo relevo colorido, como a Fundação Mirim branca e azul':'colored recessed relief, like the white and blue Fundação Mirim keychain',
     'Fundação Mirim em dois acabamentos. Cores e composição definidas para cada projeto.':'Fundação Mirim in two finishes. Colors and layout are tailored to each project.',
-    'Cada encontro, uma história.':'Every gathering, a story.','Projetos que já ganharam forma aqui na Forja.':'Projects brought to life at Forja.','Clique em um projeto para explorar. Arraste para girar.':'Select a project to explore. Drag to rotate.',
-    'Projetos dos clientes: carrossel contínuo. Clique em um bloco para centralizar e arraste para girar.':'Client projects: a continuous carousel. Select a tile to center it and drag to rotate.','Projetos dos clientes':'Client projects',
-    'Para quem transforma desafios em ideias.':'For those who turn challenges into ideas.','Quero um projeto assim':'I want a project like this','Uma lembrança que carrega significado.':'A keepsake with meaning.',
+    'Projetos de clientes.':'Client projects.','Identidades que já ganhar forma aqui na Forja.':'Brands brought to life at Forja.','Identidades que já ganharam forma aqui na Forja.':'Brands brought to life at Forja.','Arraste para o lado para conhecer os projetos.':'Drag sideways to explore the projects.',
+    'Projetos dos clientes em carrossel contínuo. Arraste para os lados ou use as setas do teclado.':'Client projects in a continuous carousel. Drag sideways or use the keyboard arrows.','Projetos dos clientes':'Client projects',
+    'Dois chaveiros Enforma Kids, rosa e azul, apoiados na mão, com relevos coloridos e pequenos mosquetões':'Two Enforma Kids keychains, pink and blue, held in a hand, with colored relief and small carabiners','Rosa e azul. Feitos para ficar.':'Pink and blue. Made to stay.','Imagem criada a partir da foto das peças reais.':'Image created from a photo of the real products.','Para quem transforma desafios em ideias.':'For those who turn challenges into ideas.','Quero um projeto assim':'I want a project like this','Uma lembrança que carrega significado.':'A keepsake with meaning.',
     'Um encontro que conecta ideias e pessoas.':'A gathering that connects ideas and people.','Um mascote que faz parte da comunidade.':'A mascot that belongs to the community.','Selecionar projeto':'Select a project','Projeto anterior':'Previous project','Próximo projeto':'Next project',
     'Sua marca.':'Your brand.','Do seu jeito.':'Your way.','Cor única':'Single color','Com NFC':'With NFC','R$ 9':'R$9','R$ 12':'R$12','R$ 15':'R$15',',00':'.00',
     'por unidade · lote de 50 por R$ 450,00':'per unit · 50 for R$450.00','por unidade · lote de 50 por R$ 600,00':'per unit · 50 for R$600.00','por unidade · lote de 50 por R$ 750,00':'per unit · 50 for R$750.00',
@@ -69,7 +69,6 @@
     'Chaveiro da Maratona de Programação vermelho':'Red Maratona de Programação keychain','Chaveiro Fundação Mirim azul com alto relevo branco':'Blue Fundação Mirim keychain with white raised relief','Chaveiro INFOESTE verde com a identidade FIPP e Unoeste':'Green INFOESTE keychain with FIPP and Unoeste branding','Chaveiro Festa Linux com mascote Tux':'Festa Linux keychain with Tux mascot'
   };
   for(const [pt,en] of [['branco','white'],['preto','black'],['azul','blue'],['vermelho','red'],['roxo','purple'],['amarelo','yellow'],['laranja','orange'],['verde','green']])translations[`Chaveiro Forja Studio ${pt} com marca em bronze`]=`${en[0].toUpperCase()+en.slice(1)} Forja Studio keychain with bronze branding`;
-  for(const name of ['Maratona de Programação','Fundação Mirim','INFOESTE','Festa Linux'])translations[`${name}. Centralizar e explorar em 3D.`]=`${name}. Center and explore in 3D.`;
   const reverse = Object.fromEntries(Object.entries(translations).map(([pt,en])=>[en,pt]));
   const attrs=['content','aria-label','alt','placeholder','title','data-idea','data-finish','data-finish-color'];
   const cookiePath = window.FORJA_ROOT.pathname;

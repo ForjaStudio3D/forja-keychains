@@ -1,4 +1,4 @@
-/* Holds the page until fonts, the hero film and the first colour frame are ready,
+/* Holds the page until fonts and the hero film are ready,
    so the opening animations are seen from their first frame instead of mid-way.
    Every gate has a ceiling: a slow or failed asset never keeps the page hidden. */
 (() => {
@@ -58,16 +58,6 @@
     video.addEventListener('stalled', resolve, {once: true});
   }), 3600);
 
-  // First colour frame, so the scroll section never opens on an empty canvas.
-  const firstFrame = limit(new Promise(resolve => {
-    const image = new Image();
-    image.decoding = 'async';
-    image.addEventListener('load', resolve, {once: true});
-    image.addEventListener('error', resolve, {once: true});
-    image.src = 'assets/forja-scroll-v26/branco/00.webp';
-    window.forjaFirstFrame = image;
-  }), 2600);
-
   // Trocar de idioma troca a pagina: rota, textos e filme. O veu volta e a
   // abertura recomeca, em vez de o visitante cair numa cena ja terminada.
   window.forjaVeil = (until, ceiling = 3600) => {
@@ -75,7 +65,7 @@
     return limit(until, ceiling).then(() => {delete root.dataset.loading;});
   };
 
-  const assets = Promise.all([fonts, film, firstFrame]);
+  const assets = Promise.all([fonts, film]);
   // O teto vale para a rede, nunca para a pergunta: revelar a página por
   // impaciência seria responder no lugar do visitante.
   const ceiling = new Promise(resolve => setTimeout(resolve, Math.max(300, CEILING - performance.now())));
