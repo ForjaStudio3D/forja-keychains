@@ -26,7 +26,7 @@
   }
   function syncURL() {
     const url = new URL(location.href);
-    url.pathname = cookiePath + 'br/';
+    url.pathname = cookiePath;
     url.searchParams.delete('lang');
     if (url.href !== location.href) history.replaceState(null, '', url);
     document.querySelectorAll('a[href^="#"]').forEach(link => {
