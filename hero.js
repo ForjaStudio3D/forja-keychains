@@ -10,10 +10,6 @@
   overlay.setAttribute('data-revealed','');
  }
  function settled(){document.dispatchEvent(new Event('forja:hero-settled'));}
- function hideTitle(){clearTimeout(curtain);curtain=0;
-  if(!overlay)return;overlay.removeAttribute('data-revealed');
-  document.dispatchEvent(new Event('forja:hero-restart'));
- }
  // Rede de seguranca: se o filme nao comecar, o texto entra assim mesmo.
  function curtainUp(){clearTimeout(curtain);curtain=setTimeout(reveal,1200);}
  const playButton=document.createElement('button');playButton.type='button';playButton.className='media-start';playButton.textContent='Ver a apresentação';playButton.hidden=true;video.closest('figure').append(playButton);
@@ -59,19 +55,6 @@
  }
  (window.forjaReady||Promise.resolve()).then(start);
 
- // Trocar de idioma e uma pagina nova: rota, textos e filme mudam juntos. A
- // abertura roda de novo, atras do mesmo veu da primeira visita.
- document.addEventListener('forja:language',()=>{
-  if(!armed)return;
-  armed=false;done=false;pending=false;
-  delete video.dataset.ended;
-  hideTitle();clearTimeout(watchdog);playButton.hidden=true;
-  const pronto=video.readyState>=3?Promise.resolve():new Promise(resolve=>{
-   video.addEventListener('canplay',resolve,{once:true});
-   video.addEventListener('error',resolve,{once:true});
-  });
-  (window.forjaVeil?window.forjaVeil(pronto):pronto).then(start);
- });
  reduced.addEventListener('change',()=>{if(reduced.matches)reveal();});
 })();
 
