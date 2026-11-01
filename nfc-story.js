@@ -15,7 +15,9 @@
       toggle.setAttribute('aria-pressed', String(userPaused));
     };
     try {
-      const source = new URL(fallback.getAttribute('src'), document.baseURI);
+      await (window.forjaSecondaryReady || Promise.resolve());
+      await new Promise(resolve => {const near = new IntersectionObserver(([entry]) => {if (entry.isIntersecting) {near.disconnect(); resolve();}}, {rootMargin:'320px'}); near.observe(figure);});
+      const source = new URL(fallback.dataset.src || fallback.getAttribute('src'), document.baseURI);
       const response = await fetch(source);
       if (!response.ok) return;
       const documentSVG = new DOMParser().parseFromString(await response.text(), 'image/svg+xml');
@@ -25,6 +27,7 @@
         image.setAttribute('href', new URL(image.getAttribute('href'), source).href);
       });
       stage.replaceChildren(document.importNode(svg, true));
+      stage.setAttribute('aria-busy', 'false');
       figure.classList.add('is-enhanced');
       toggle.addEventListener('click', () => { userPaused = !userPaused; update(); });
       document.addEventListener('visibilitychange', update);

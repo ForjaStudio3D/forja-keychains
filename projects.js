@@ -40,12 +40,12 @@
     const fraction = position - Math.floor(position);
     const center = result[4].center * (1 - fraction) + result[5].center * fraction;
     return result.map(panel => {
-      // One continuous, shared quarter turn per card: every model rotates as the
-      // belt advances and reaches its own intended pose in the center.
+      // Continuous X/Y turns follow each card and reach the original upright
+      // pose at the center. Slots recycle only beyond the visible belt.
       const facing = [0, 0, 0, Math.PI / 4, 0][panel.index];
       const yaw = panel.relative * Math.PI / 2 + facing;
-      const roll = panel.index === 2 ? Math.PI : 0; // Colo de Fono was designed inverted.
-      const pitch = panel.index === 3 ? -Math.PI / 6 : 0;
+      const roll = [2, 4].includes(panel.index) ? Math.PI : 0; // Keep each source in its intended upright pose.
+      const pitch = (panel.index === 3 ? -Math.PI / 6 : 0) + panel.relative * Math.PI / 2;
       return {...panel, x: panel.x + width / 2 - center, yaw, pitch, roll};
     });
   }
@@ -112,9 +112,10 @@
   }
   async function prepare() {
     if (viewer || pending || fallback) return;
-    pending = import('./clients-renderer.js?v=47').then(module => module.createClientsViewer(canvas)).then(result => {
-      viewer = result; section.classList.add('has-3d-clients'); sync();
-    }).catch(() => {fallback = true; section.classList.add('clients-fallback'); stage.hidden = true; sync();});
+    stage.setAttribute('aria-busy', 'true');
+    pending = (window.forjaSecondaryReady || Promise.resolve()).then(() => import('./clients-renderer.js?v=47')).then(module => module.createClientsViewer(canvas)).then(result => {
+      viewer = result; stage.setAttribute('aria-busy', 'false'); section.classList.add('has-3d-clients'); sync();
+    }).catch(() => {stage.setAttribute('aria-busy', 'false'); fallback = true; section.classList.add('clients-fallback'); stage.hidden = true; sync();});
   }
   stage.addEventListener('pointerdown', event => {
     if (!event.isPrimary || event.button !== 0 || !viewer) return;
@@ -162,4 +163,5 @@
   document.addEventListener('visibilitychange', sync);
   reduced.addEventListener('change', () => {centering = null; position = Math.round(position); sync();});
   labels();
+  (window.forjaSecondaryReady || Promise.resolve()).then(() => {setTimeout(prepare, 900);});
 })();

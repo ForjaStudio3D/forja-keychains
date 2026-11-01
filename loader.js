@@ -29,23 +29,6 @@
   // animations at once rather than leaving them armed behind a veil that is gone.
   if (!root.hasAttribute('data-loading')) return finish('preempted');
 
-  // Quando o aparelho pede menos movimento, a escolha é do visitante e é feita
-  // ANTES de a página aparecer: nada de abrir numa cena parada e deixar que ele
-  // descubra sozinho que havia uma apresentação. Sem resposta, nada é revelado.
-  const ask = document.querySelector('#forja-loader .loader-ask');
-  const motionAnswer = (window.forjaMotion?.needsAsk && ask) ? new Promise(resolve => {
-    root.dataset.loaderAsk = '';
-    ask.hidden = false;
-    ask.querySelectorAll('[data-motion-choice]').forEach(button =>
-      button.addEventListener('click', () => {
-        window.forjaMotion.choose(button.dataset.motionChoice);
-        ask.hidden = true;
-        delete root.dataset.loaderAsk;
-        resolve();
-      }, {once: true}));
-    queueMicrotask(() => ask.querySelector('[data-motion-choice]')?.focus());
-  }) : Promise.resolve();
-
   const fonts = limit(document.fonts ? document.fonts.ready : null, 2600);
 
   // The film only gates the page when it is actually going to play.
@@ -69,6 +52,5 @@
   // O teto vale para a rede, nunca para a pergunta: revelar a página por
   // impaciência seria responder no lugar do visitante.
   const ceiling = new Promise(resolve => setTimeout(resolve, Math.max(300, CEILING - performance.now())));
-  Promise.all([motionAnswer, Promise.race([assets, ceiling])])
-    .then(() => finish(root.dataset.loaderAsk === undefined && window.forjaMotion?.choice ? 'answered' : 'ready'));
+  Promise.race([assets, ceiling]).then(() => finish('ready'));
 })();

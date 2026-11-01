@@ -278,3 +278,66 @@ input,textarea{caret-color:var(--brand)}
   .pricing-next{margin-top:26px}
   .pricing-next .button{width:100%}
 }
+
+/* LP review: product, then the useful next action. */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;margin:-1px!important;overflow:hidden!important;clip-path:inset(50%)!important;white-space:nowrap;border:0}
+.enforma-feature figcaption h2{font-size:clamp(30px,3.8vw,48px);line-height:1.08;letter-spacing:-.035em}
+.use-section .enforma-feature figcaption p{font-size:17px;font-weight:400;line-height:1.55;letter-spacing:0;max-width:30ch;color:var(--muted);text-wrap:pretty}
+#colecao{padding-block:70px 64px;height:auto}
+#colecao .collection-pin,#colecao:not(.has-3d-clients) .collection-pin{display:grid;position:relative;top:auto;height:auto;min-height:0;padding:0;grid-template-rows:auto clamp(310px,46svh,480px) auto;gap:24px;overflow:hidden}
+#colecao .section-heading{width:min(1140px,calc(100% - 80px));margin:auto}
+#colecao .section-heading h2{font-size:clamp(34px,4.4vw,56px)}
+#colecao .section-heading>p{margin-top:14px}
+#colecao .client-stage{display:block;grid-row:2;min-height:0;height:100%}
+#colecao .collection-grid,#colecao.has-3d-clients .collection-grid{grid-row:3;min-height:0;margin:0 auto;width:min(650px,calc(100% - 40px))}
+html[data-js] #colecao:not(.has-3d-clients):not(.clients-fallback) .collection-grid{visibility:hidden;height:100px;overflow:hidden}
+#colecao.has-3d-clients .project-copy{padding:0}
+#colecao.has-3d-clients .project-copy p{margin:8px 0}
+#colecao .client-loading{position:absolute;inset:0;display:grid;align-content:center;justify-items:center;gap:16px;background:var(--surface);font-size:14px;color:var(--muted)}
+#colecao.has-3d-clients .client-loading{display:none}
+.loading-line{display:block;width:88px;height:2px;overflow:hidden;background:var(--line)}
+.loading-line::after{content:'';display:block;width:35%;height:100%;background:var(--bronze);animation:forja-load 1.2s ease-in-out infinite}
+#colecao.clients-fallback .collection-pin{display:block}
+#colecao.clients-fallback .collection-grid{display:flex;width:100%;overflow-x:auto}
+#colecao.clients-fallback .project-image img{position:static;transform:none;width:100%;height:100%;object-fit:contain}
+[data-media-frame]{position:relative}
+img[data-src]{background:var(--surface);color:transparent;min-height:1px}
+[data-media-frame][aria-busy=true] img[data-src]{opacity:.32;animation:media-pulse 1.4s ease-in-out infinite alternate}
+.media-status{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);font-size:13px;line-height:1.4;text-align:center;color:var(--muted);white-space:nowrap;pointer-events:none}
+.media-status button{pointer-events:auto;border:1px solid var(--line);border-radius:8px;padding:12px 18px;background:var(--surface-raised);color:var(--brand)}
+@keyframes media-pulse{to{opacity:.65}}
+.footer{display:block;padding-block:32px 24px}
+.footer-main{display:grid;grid-template-columns:1fr auto auto;align-items:start;gap:48px}
+.footer-main .brand img{width:150px;height:50px}
+.footer-main nav,.footer-contact{display:grid;gap:0;font-size:14px}
+.footer-main nav a,.footer-contact a{display:flex;align-items:center;min-height:44px}
+.footer-contact a:first-child{color:var(--brand);font-weight:700}
+.footer-bottom{display:flex;align-items:center;flex-wrap:wrap;gap:12px 28px;border-top:1px solid var(--line);margin-top:24px;padding-top:20px;font-size:12px;color:var(--muted)}
+.footer-bottom>span:last-child{margin-left:auto}
+.footer-bottom a{text-underline-offset:4px}
+.footer-bottom a:hover{text-decoration:underline}
+@media(max-width:760px){
+  #colecao{padding-block:48px}
+  #colecao .section-heading{width:calc(100% - 40px)}
+  #colecao .collection-pin,#colecao:not(.has-3d-clients) .collection-pin{grid-template-rows:auto clamp(285px,43svh,380px) auto;gap:20px}
+  #colecao .section-heading h2{font-size:34px}
+  #colecao.has-3d-clients .collection-grid{min-height:0}
+  .footer{padding-block:28px 20px}
+  .footer-main{grid-template-columns:1fr 1fr;gap:18px 22px}
+  .footer-main .brand{grid-column:1/-1}
+  .footer-bottom{gap:12px 20px;margin-top:20px;padding-top:18px}
+  .footer-bottom>span:last-child{margin-left:0;flex-basis:100%;font-size:11px}
+  .enforma-feature figcaption h2{font-size:32px}
+  .use-section .enforma-feature figcaption p{font-size:16px;max-width:32ch}
+}
+html[data-motion=full] .hero-overlay{transition:opacity 600ms ease,transform 850ms cubic-bezier(.23,1,.32,1)}
+
+/* A browser without scripts keeps the static, native-lazy product gallery. */
+html:not([data-js]) img[data-src]{display:none}
+html:not([data-js]) #colecao .client-stage{display:none}
+html:not([data-js]) #colecao .collection-pin{display:block}
+html:not([data-js]) #colecao .collection-grid{display:flex;visibility:visible;height:auto;overflow-x:auto}
+
+#colecao .client-stage[hidden],#colecao.clients-fallback .client-stage{display:none}
+
+html:not([data-js]) .hero-overlay{opacity:1;transform:none}

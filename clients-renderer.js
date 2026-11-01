@@ -17,15 +17,31 @@ export async function createClientsViewer(canvas) {
   const fill = new T.DirectionalLight(0xffffff, .55);
   fill.position.set(70, 15, 110);
   scene.add(fill);
-  const sources = ['client-maratona-exterior-v26', 'client-mirim-exterior-v26', 'client-colodefono-exterior-v26', 'client-linux-exterior-v26', 'client-enforma-pink-exterior-v48'];
+  const sources = ['client-maratona-exterior-v26', 'client-mirim-exterior-v26', 'client-colodefono-exterior-v26', 'client-linux-exterior-v26', 'client-enforma-parametric-exterior'];
   // Cor do corpo por projeto, na mesma ordem de `sources`: o material CORPO
   // do modelo herda esta entrada. Incluir um projeto sem incluir a cor deixa
   // o novo com a cor do vizinho e o ultimo sem cor nenhuma.
   const colors = ['#C8202D', '#1B4FD8', '#F2F2EF', '#1A1A1A', '#ED4BA5'];
+  async function geometryData(name) {
+    const url = `assets/${name}-indexed-v41.bin`;
+    // Explicit gzip files reduce transfers even on a static host. Older
+    // browsers use the exact same uncompressed geometry.
+    if ('DecompressionStream' in window) {
+      try {
+        const response = await fetch(url + '.gz', {priority:'low'});
+        if (!response.ok) throw Error('Compressed model unavailable');
+        return response.headers.get('content-encoding') === 'gzip' ? await response.arrayBuffer() :
+          await new Response(response.body.pipeThrough(new DecompressionStream('gzip'))).arrayBuffer();
+      } catch {}
+    }
+    const response = await fetch(url, {priority:'low'});
+    if (!response.ok) throw Error('Client model unavailable');
+    return response.arrayBuffer();
+  }
   const models = await Promise.all(sources.map(async (name, index) => {
-    const [dataResponse, metaResponse] = await Promise.all([fetch(`assets/${name}-indexed-v41.bin`), fetch(`assets/${name}-indexed-v41.json`)]);
-    if (!dataResponse.ok || !metaResponse.ok) throw Error('Client model unavailable');
-    const [data, meta] = await Promise.all([dataResponse.arrayBuffer(), metaResponse.json()]);
+    const [data, metaResponse] = await Promise.all([geometryData(name), fetch(`assets/${name}-indexed-v41.json`, {priority:'low'})]);
+    if (!metaResponse.ok) throw Error('Client model unavailable');
+    const meta = await metaResponse.json();
     const buffer = new T.InterleavedBuffer(new Float32Array(data, 0, meta.vertexBytes / 4), 6);
     const geometry = new T.BufferGeometry();
     geometry.setIndex(new T.BufferAttribute(new Uint32Array(data, meta.vertexBytes, meta.indexCount), 1));
@@ -60,7 +76,7 @@ export async function createClientsViewer(canvas) {
         if (right <= left) return;
         const model = models[panel.index];
         const aspect = panel.width / height;
-        const halfHeight = model.radius * (width < 600 ? .72 : 1.2) / Math.min(1, aspect);
+        const halfHeight = model.radius * 1.12 / Math.min(1, aspect);
         camera.left = -halfHeight * aspect; camera.right = halfHeight * aspect;
         camera.top = halfHeight; camera.bottom = -halfHeight;
         camera.updateProjectionMatrix();
