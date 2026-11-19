@@ -1,14 +1,14 @@
 {
-  "id": "01050f2aaae0",
+  "id": "9f1b46c40d47",
   "assets": {
-    "loader.js": "loader.2c77a72f2342.js",
+    "loader.js": "loader.ed2c11ee6f7b.js",
     "media-loader.js": "media-loader.6e4f795295c7.js",
     "nfc-story.js": "nfc-story.91393bd37e34.js",
     "carousel.js": "carousel.761e04e31b40.js",
     "vendor/three.module.js": "vendor/three.module.0a3368c165ee.js",
     "clients-renderer.js": "clients-renderer.c4d1ff823d1e.js",
     "projects.js": "projects.0ad878dd685c.js",
-    "hero.js": "hero.5d94051d01f4.js",
+    "hero.js": "hero.1d865bcf631e.js",
     "page-controls.js": "page-controls.eaed4fdbf544.js",
     "build-client.js": "build-client.342505b7098b.js",
     "prices.js": "prices.5d3d0a66eb4c.js",

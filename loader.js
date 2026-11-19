@@ -33,7 +33,7 @@
 
   // The film only gates the page when it is actually going to play.
   const video = document.querySelector('#hero-video');
-  const film = (!video || window.forjaMotion?.matches) ? Promise.resolve() : limit(new Promise(resolve => {
+  const film = (!video || window.forjaMotion?.matches || navigator.connection?.saveData) ? Promise.resolve() : limit(new Promise(resolve => {
     if (video.readyState >= 3) return resolve();
     video.addEventListener('canplaythrough', resolve, {once: true});
     video.addEventListener('canplay', resolve, {once: true});

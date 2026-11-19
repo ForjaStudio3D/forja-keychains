@@ -1,57 +1,142 @@
 (() => {
- const video=document.querySelector('#hero-video'),reduced=window.forjaMotion;
- const stage=video.closest('figure'),overlay=document.querySelector('.hero-overlay');
- let visible=false,done=false,pending=false,watchdog=0,armed=false,curtain=0;
- // O titulo entra depois que a abertura termina, flutuando sobre o filme. Se a
- // reproducao nao acontecer -- movimento reduzido, autoplay recusado, rede que
- // nunca entrega -- ele entra assim mesmo: o texto nunca depende do video.
- function reveal(){clearTimeout(curtain);curtain=0;
-  if(!overlay||overlay.hasAttribute('data-revealed'))return;
-  overlay.setAttribute('data-revealed','');
- }
- function settled(){document.dispatchEvent(new Event('forja:hero-settled'));}
- // Rede de seguranca: se o filme nao comecar, o texto entra assim mesmo.
- function curtainUp(){clearTimeout(curtain);curtain=setTimeout(reveal,1200);}
- const playButton=document.createElement('button');playButton.type='button';playButton.className='media-start';playButton.textContent='Ver a apresentação';playButton.hidden=true;stage.append(playButton);
- video.muted=true;video.defaultMuted=true;video.playsInline=true;
- const eligible=()=>armed&&!done&&!reduced.matches&&!document.hidden&&visible;
- function measure(){const r=stage.getBoundingClientRect();visible=r.bottom>0&&r.top<innerHeight;}
- function fallback(){if(eligible()&&video.paused&&video.readyState>=3)playButton.hidden=false;}
- function play(){
-  if(!eligible()||pending)return;
-  pending=true;clearTimeout(watchdog);watchdog=setTimeout(fallback,4000);
-  video.play().then(()=>{if(!eligible())video.pause();else playButton.hidden=true;})
-   .catch(error=>{if(error&&error.name==='NotAllowedError'&&eligible())playButton.hidden=false;else fallback();})
-   .finally(()=>{pending=false;});
- }
- function sync(){
-  video.hidden=reduced.matches;
-  if(!eligible()){video.pause();clearTimeout(watchdog);playButton.hidden=true;return;}
-  play();
- }
- playButton.addEventListener('click',()=>{pending=false;measure();play();});
- video.addEventListener('playing',()=>{clearTimeout(watchdog);playButton.hidden=true;if(armed)reveal();});
- video.addEventListener('ended',()=>{done=true;video.dataset.ended='true';playButton.hidden=true;clearTimeout(watchdog);settled();});
- // Retry when media becomes ready or a suspended page returns on iOS.
- video.addEventListener('canplay',sync);
- window.addEventListener('pageshow',()=>{measure();sync();});
- document.addEventListener('visibilitychange',()=>{measure();sync();});
- document.addEventListener('touchend',()=>{if(video.paused&&!playButton.hidden){pending=false;measure();play();}},{passive:true});
- reduced.addEventListener('change',()=>{measure();sync();if(reduced.matches)reveal();});
- if('IntersectionObserver' in window)new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync();},{threshold:0}).observe(stage);
- measure();
- function start(){
-  armed=true;
-  if(reduced.matches||video.error){reveal();settled();}
-  else{
-   // Dois quadros depois da página aparecer: o primeiro aplica o estado inicial,
-   // o segundo dispara a transição. Revelar no mesmo quadro pularia o fade.
-   requestAnimationFrame(()=>requestAnimationFrame(reveal));
-   curtainUp();
+  const video = document.querySelector('#hero-video');
+  const stage = video.closest('figure');
+  const overlay = document.querySelector('.hero-overlay');
+  const motion = window.forjaMotion;
+  const connection = navigator.connection;
+  const media = matchMedia('(max-width: 900px)').matches ? video.dataset.mobileSrc : video.dataset.desktopSrc;
+  // Pages supports byte-range requests for video, including on Safari.
+  const pages = 'https://forjastudio3d.github.io/forja-keychains/';
+  const sources = [...new Set([new URL(media, pages).href, new URL(media, document.baseURI).href])];
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'media-start';
+  button.setAttribute('aria-controls', video.id);
+  button.hidden = true;
+  stage.append(button);
+
+  let armed = false;
+  let visible = false;
+  let requested = false;
+  let stopped = '';
+  let sourceIndex = -1;
+  let pending = null;
+  let watchdog = 0;
+  const allowsAutoplay = () => !motion.matches && !connection?.saveData;
+
+  function reveal() {
+    overlay.setAttribute('data-revealed', '');
   }
-  measure();sync();
- }
- (window.forjaReady||Promise.resolve()).then(start);
+  function settle() {
+    reveal();
+    document.dispatchEvent(new Event('forja:hero-settled'));
+  }
+  function updateButton() {
+    button.hidden = !armed;
+    if (stopped === 'failed') button.textContent = 'Tentar reproduzir';
+    else if (stopped === 'ended') button.textContent = 'Rever animação';
+    else if (!video.paused) button.textContent = 'Pausar animação';
+    else button.textContent = video.currentTime > 0 ? 'Continuar animação' : 'Ver animação';
+  }
+  function suspend() {
+    clearTimeout(watchdog);
+    pending = null;
+    video.pause();
+  }
+  function selectSource(index) {
+    sourceIndex = index;
+    video.preload = 'auto';
+    video.src = sources[index];
+  }
+  function stop(reason) {
+    stopped = reason;
+    sync();
+    settle();
+  }
+  function recover() {
+    suspend();
+    if (sourceIndex + 1 === sources.length) stop('failed');
+    else {
+      selectSource(sourceIndex + 1);
+      sync();
+    }
+  }
+  function play() {
+    if (pending || !video.paused) return;
+    if (sourceIndex < 0) selectSource(0);
+    clearTimeout(watchdog);
+    watchdog = setTimeout(recover, 6500);
+    const attempt = video.play();
+    pending = attempt;
+    attempt.catch((error) => {
+      if (pending !== attempt || error.name === 'AbortError') return;
+      if (error.name === 'NotAllowedError') stop('blocked');
+      else recover();
+    }).finally(() => {
+      if (pending === attempt) pending = null;
+      updateButton();
+    });
+  }
+  function sync() {
+    const enabled = requested || allowsAutoplay();
+    video.hidden = !enabled || stopped === 'failed';
+    if (!armed || !visible || document.hidden || !enabled || stopped) suspend();
+    else play();
+    updateButton();
+  }
+  function measure() {
+    const rect = stage.getBoundingClientRect();
+    visible = rect.bottom > 0 && rect.top < innerHeight;
+    sync();
+  }
+
+  button.addEventListener('click', () => {
+    if (!video.paused) {
+      stopped = 'paused';
+    } else {
+      if (stopped === 'ended') document.dispatchEvent(new Event('forja:hero-restart'));
+      if (stopped === 'failed') selectSource(0);
+      stopped = '';
+      requested = true;
+    }
+    measure();
+  });
+  video.addEventListener('playing', () => {
+    clearTimeout(watchdog);
+    reveal();
+    updateButton();
+  });
+  video.addEventListener('ended', () => stop('ended'));
+  video.addEventListener('error', () => {if (video.error && stopped !== 'failed') recover();});
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {visible = entry.isIntersecting; sync();}).observe(stage);
+  }
+  window.addEventListener('pageshow', measure);
+  document.addEventListener('visibilitychange', measure);
+  motion.addEventListener('change', () => {requested = false; measure();});
+  connection?.addEventListener?.('change', () => {requested = false; measure();});
+
+  if (allowsAutoplay()) selectSource(0);
+  sync();
+  (window.forjaReady || Promise.resolve()).then(() => {
+    const root = document.documentElement;
+    function start() {
+      armed = true;
+      if (!allowsAutoplay()) settle();
+      else requestAnimationFrame(() => requestAnimationFrame(reveal));
+      measure();
+    }
+    if (!root.hasAttribute('data-loading')) {
+      start();
+    } else {
+      const loader = new MutationObserver(() => {
+        if (root.hasAttribute('data-loading')) return;
+        loader.disconnect();
+        start();
+      });
+      loader.observe(root, { attributes: true, attributeFilter: ['data-loading'] });
+    }
+  });
 })();
 
 (() => {
