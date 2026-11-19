@@ -1,6 +1,6 @@
 (() => {
  const video=document.querySelector('#hero-video'),reduced=window.forjaMotion;
- const overlay=document.querySelector('.hero-overlay');
+ const stage=video.closest('figure'),overlay=document.querySelector('.hero-overlay');
  let visible=false,done=false,pending=false,watchdog=0,armed=false,curtain=0;
  // O titulo entra depois que a abertura termina, flutuando sobre o filme. Se a
  // reproducao nao acontecer -- movimento reduzido, autoplay recusado, rede que
@@ -12,10 +12,10 @@
  function settled(){document.dispatchEvent(new Event('forja:hero-settled'));}
  // Rede de seguranca: se o filme nao comecar, o texto entra assim mesmo.
  function curtainUp(){clearTimeout(curtain);curtain=setTimeout(reveal,1200);}
- const playButton=document.createElement('button');playButton.type='button';playButton.className='media-start';playButton.textContent='Ver a apresentação';playButton.hidden=true;video.closest('figure').append(playButton);
+ const playButton=document.createElement('button');playButton.type='button';playButton.className='media-start';playButton.textContent='Ver a apresentação';playButton.hidden=true;stage.append(playButton);
  video.muted=true;video.defaultMuted=true;video.playsInline=true;
  const eligible=()=>armed&&!done&&!reduced.matches&&!document.hidden&&visible;
- function measure(){const r=video.getBoundingClientRect();visible=r.bottom>0&&r.top<innerHeight;}
+ function measure(){const r=stage.getBoundingClientRect();visible=r.bottom>0&&r.top<innerHeight;}
  function fallback(){if(eligible()&&video.paused&&video.readyState>=3)playButton.hidden=false;}
  function play(){
   if(!eligible()||pending)return;
@@ -37,13 +37,11 @@
  window.addEventListener('pageshow',()=>{measure();sync();});
  document.addEventListener('visibilitychange',()=>{measure();sync();});
  document.addEventListener('touchend',()=>{if(video.paused&&!playButton.hidden){pending=false;measure();play();}},{passive:true});
- reduced.addEventListener('change',()=>{video.hidden=reduced.matches;measure();sync();});
- if('IntersectionObserver' in window)new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync();},{threshold:0}).observe(video);
+ reduced.addEventListener('change',()=>{measure();sync();if(reduced.matches)reveal();});
+ if('IntersectionObserver' in window)new IntersectionObserver(([e])=>{visible=e.isIntersecting;sync();},{threshold:0}).observe(stage);
  measure();
  function start(){
   armed=true;
-  // The veil may have hidden the opening frames; rewind so nothing is missed.
-  if(video.currentTime>0&&!done){try{video.currentTime=0;}catch{}}
   if(reduced.matches||video.error){reveal();settled();}
   else{
    // Dois quadros depois da página aparecer: o primeiro aplica o estado inicial,
@@ -54,8 +52,6 @@
   measure();sync();
  }
  (window.forjaReady||Promise.resolve()).then(start);
-
- reduced.addEventListener('change',()=>{if(reduced.matches)reveal();});
 })();
 
 (() => {

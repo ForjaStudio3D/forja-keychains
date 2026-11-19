@@ -1,5 +1,5 @@
 {
-  "id": "90d6d1fe5743",
+  "id": "01050f2aaae0",
   "assets": {
     "loader.js": "loader.2c77a72f2342.js",
     "media-loader.js": "media-loader.6e4f795295c7.js",
@@ -8,12 +8,12 @@
     "vendor/three.module.js": "vendor/three.module.0a3368c165ee.js",
     "clients-renderer.js": "clients-renderer.c4d1ff823d1e.js",
     "projects.js": "projects.0ad878dd685c.js",
-    "hero.js": "hero.2efa162f0961.js",
+    "hero.js": "hero.5d94051d01f4.js",
     "page-controls.js": "page-controls.eaed4fdbf544.js",
     "build-client.js": "build-client.342505b7098b.js",
     "prices.js": "prices.5d3d0a66eb4c.js",
     "language.js": "language.abe74e047205.js",
-    "motion.js": "motion.55200c246c5d.js",
+    "motion.js": "motion.9cbfb73191e0.js",
     "style.css": "style.970765ca08e6.css",
     "nfc-story.css": "nfc-story.68cea502cead.css",
     "forja-theme.css": "forja-theme.3ad8f4cd2d89.css",

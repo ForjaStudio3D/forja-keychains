@@ -1,9 +1,9 @@
 (() => {
-  const events = new EventTarget();
-  document.documentElement.dataset.motion = 'full';
-  window.forjaMotion = {
-    matches: false, needsAsk: false, choice: 'on', preference: 'full',
-    addEventListener: events.addEventListener.bind(events),
-    removeEventListener: events.removeEventListener.bind(events)
-  };
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function sync() {
+    document.documentElement.dataset.motion = preference.matches ? 'reduced' : 'full';
+  }
+  window.forjaMotion = preference;
+  preference.addEventListener('change', sync);
+  sync();
 })();
